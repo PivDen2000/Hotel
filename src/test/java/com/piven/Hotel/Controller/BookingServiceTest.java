@@ -1,7 +1,7 @@
-package com.pivden.Hotel.Controller;
+package com.piven.Hotel.Controller;
 
-import com.pivden.Hotel.Model.Booking;
-import com.pivden.Hotel.Service.Implementation.BookingService;
+import com.piven.Hotel.Model.Booking;
+import com.piven.Hotel.Service.Implementation.BookingService;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 public class BookingServiceTest {
     @Test
-    public void testCreateBooking() {
+    public void testCreateBooking() throws Exception {
         // given
         var bookingService = new BookingService();
         var booking = new Booking("John Smith", 2, LocalDate.now(), LocalDate.now().plusDays(2), "STANDARD");
@@ -20,7 +20,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testGetBookings() {
+    public void testGetBookings() throws Exception {
         // given
         var bookingService = new BookingService();
         bookingService.createBooking(new Booking("John Smith", 2, LocalDate.now(), LocalDate.now().plusDays(2), "STANDARD"));
@@ -31,7 +31,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testGetBooking() {
+    public void testGetBooking() throws Exception {
         // given
         var bookingService = new BookingService();
         var booking = new Booking("John Smith", 2, LocalDate.now(), LocalDate.now().plusDays(2), "STANDARD");
@@ -42,7 +42,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testUpdateBooking() {
+    public void testUpdateBooking() throws Exception {
         // given
         var bookingService = new BookingService();
         var booking = new Booking("John Smith", 2, LocalDate.now(), LocalDate.now().plusDays(2), "STANDARD");
@@ -55,7 +55,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testDeleteBooking() {
+    public void testDeleteBooking() throws Exception {
         // given
         var bookingService = new BookingService();
         var booking = new Booking("John Smith", 2, LocalDate.now(), LocalDate.now().plusDays(2), "STANDARD");

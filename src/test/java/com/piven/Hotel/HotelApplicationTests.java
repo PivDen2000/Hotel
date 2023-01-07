@@ -1,4 +1,4 @@
-package com.pivden.Hotel;
+package com.piven.Hotel;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

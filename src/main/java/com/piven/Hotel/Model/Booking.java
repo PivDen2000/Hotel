@@ -1,14 +1,16 @@
-package com.pivden.Hotel.Model;
+package com.piven.Hotel.Model;
 
 import java.time.LocalDate;
 
 public class Booking {
-    private long id;
+
+    private Long id;
     private String name;
-    private int numberOfGuests;
+    private Integer numberOfGuests;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private String roomType;
+    public enum roomTypes {STANDARD, SUITE};
 
     public Booking(String name, int numberOfGuests, LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
         this.name = name;
@@ -18,10 +20,9 @@ public class Booking {
         this.roomType = roomType;
     }
 
-    public long getId() {
+    public Long getId(){
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -34,7 +35,7 @@ public class Booking {
         this.name = name;
     }
 
-    public int getNumberOfGuests() {
+    public Integer getNumberOfGuests() {
         return numberOfGuests;
     }
 
