@@ -10,8 +10,7 @@ public class Booking {
     private LocalDate checkOutDate;
     private String roomType;
 
-    public Booking(long id, String name, int numberOfGuests, LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
-        this.id = id;
+    public Booking(String name, int numberOfGuests, LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
         this.name = name;
         this.numberOfGuests = numberOfGuests;
         this.checkInDate = checkInDate;
