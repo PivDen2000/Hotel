@@ -2,6 +2,11 @@ package com.piven.Hotel.Controller;
 
 import com.piven.Hotel.Model.Booking;
 import com.piven.Hotel.Service.Implementation.BookingService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +15,11 @@ import java.util.Arrays;
 
 @RequestMapping("/booking")
 @RestController
+@Tag(name = "Booking Controller")
 public class BookingController {
     private final BookingService bookingService = new BookingService();
 
-    public void validateBooking(Booking booking) throws Exception {
+    private void validateBooking(Booking booking) throws Exception {
         if (booking.getName() == null)
             throw new Exception("Empty name.");
         if (booking.getNumberOfGuests() <= 0)
@@ -30,6 +36,18 @@ public class BookingController {
             throw new Exception("Incorrect room type.");
     }
 
+    @Operation(summary = "Create a booking", description = "Returns id of a booking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully created",
+                    content = @Content(mediaType = "integer")),
+            @ApiResponse(responseCode = "400",
+                    description = "The booking was not created",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = @Content)
+    })
     @PutMapping("/")
     public ResponseEntity<Object> createBooking(@RequestBody Booking booking) {
         try {
@@ -40,6 +58,15 @@ public class BookingController {
         }
     }
 
+    @Operation(summary = "Get list of all bookings", description = "Returns list of all bookings")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully got",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = @Content)
+    })
     @GetMapping("/")
     public ResponseEntity<Object> getBookings() {
         try {
@@ -49,6 +76,18 @@ public class BookingController {
         }
     }
 
+    @Operation(summary = "Get booking by id", description = "Returns booking")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully got",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400",
+                    description = "The booking was not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = @Content)
+    })
     @GetMapping("/{idBooking}")
     public ResponseEntity<Object> getBooking(@PathVariable long idBooking) {
         try {
@@ -58,6 +97,18 @@ public class BookingController {
         }
     }
 
+    @Operation(summary = "Update booking by id", description = "Returns boolean")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully updated",
+                    content = @Content(mediaType = "boolean")),
+            @ApiResponse(responseCode = "400",
+                    description = "The booking was not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = @Content)
+    })
     @PutMapping("/{idBooking}")
     public ResponseEntity<Object> updateBooking(@PathVariable long idBooking, @RequestBody Booking booking) {
         try {
@@ -68,6 +119,18 @@ public class BookingController {
         }
     }
 
+    @Operation(summary = "Delete booking by id", description = "Returns boolean")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully deleted",
+                    content = @Content(mediaType = "boolean")),
+            @ApiResponse(responseCode = "400",
+                    description = "The booking was not found",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Internal Server Error",
+                    content = @Content)
+    })
     @DeleteMapping("/{idBooking}")
     public ResponseEntity<Object> deleteBooking(@PathVariable long idBooking) {
         try {

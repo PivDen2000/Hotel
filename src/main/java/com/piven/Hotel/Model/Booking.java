@@ -1,16 +1,28 @@
 package com.piven.Hotel.Model;
 
+
+import nonapi.io.github.classgraph.json.Id;
+
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class Booking {
 
+    @Id
+    @NotBlank
     private Long id;
+    @NotBlank
     private String name;
+    @NotBlank
     private Integer numberOfGuests;
+    @NotBlank
     private LocalDate checkInDate;
+    @NotBlank
     private LocalDate checkOutDate;
+    @NotBlank
     private String roomType;
-    public enum roomTypes {STANDARD, SUITE};
+
+    public enum roomTypes {STANDARD, SUITE}
 
     public Booking(String name, int numberOfGuests, LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
         this.name = name;
@@ -20,9 +32,10 @@ public class Booking {
         this.roomType = roomType;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
