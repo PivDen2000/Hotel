@@ -5,21 +5,20 @@ import com.piven.Hotel.Service.IBookingService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class BookingService implements IBookingService {
 
-    private final Map<Long, Booking> bookings = new ConcurrentHashMap<>();
-    private final AtomicLong counter = new AtomicLong();
+    private final Map<Long, Booking> bookings = new HashMap<>();
+    private Long counter = 0L;
 
     public BookingService() {
     }
 
     @PutMapping("/")
     public Long createBooking(@RequestBody Booking booking) throws Exception {
-        return createBookingById(counter.incrementAndGet(), booking);
+        return createBookingById(++counter, booking);
     }
 
     private Long createBookingById(long idBooking, @RequestBody Booking booking) throws Exception {

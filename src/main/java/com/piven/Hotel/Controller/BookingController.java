@@ -1,6 +1,7 @@
 package com.piven.Hotel.Controller;
 
 import com.piven.Hotel.Model.Booking;
+import com.piven.Hotel.Service.IBookingService;
 import com.piven.Hotel.Service.Implementation.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,13 +18,17 @@ import java.util.Arrays;
 @RestController
 @Tag(name = "Booking Controller")
 public class BookingController {
-    private final BookingService bookingService = new BookingService();
+    private final IBookingService bookingService = new BookingService();
 
     private void validateBooking(Booking booking) throws Exception {
+        if (booking == null)
+            throw new Exception("Booking null object.");
         if (booking.getName() == null)
             throw new Exception("Empty name.");
-        if (booking.getNumberOfGuests() <= 0)
+        if (booking.getNumberOfGuests() == null)
             throw new Exception("Empty number of guests.");
+        if (booking.getNumberOfGuests() <= 0)
+            throw new Exception("Incorrect number of guests.");
         if (booking.getCheckInDate() == null)
             throw new Exception("Empty check-in date.");
         if (booking.getCheckOutDate() == null)
