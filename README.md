@@ -1,6 +1,6 @@
 # Hotel
 
-Theoretical background (investigate prior to task perform):
+### Theoretical background (investigate prior to task perform):
 
 1.	HTTP protocol (GET/POST/PUT/DELETE))
 2.	Java EE
@@ -9,54 +9,75 @@ Theoretical background (investigate prior to task perform):
 5.	Junit 5
 6.	Application servers
 
-Practice
+### Practice
 
 Create Spring Boot Web application for a hotel with following endpoints:
+
 (* - required fields)
 -	booking creation
-     /booking
-     PUT:
-     •	*Name of Person
-     •	*Number of guests (ADULTS and CHILDREN)
-     •	*Check-in date
-     •	*Check-out date
-     •	*Room Type (STANDART, SUITE)
-     Response:
-     •	200 (idBooking)
-     •	400
-     •	500
+     
+          /booking
+          
+          PUT:
+          -	*Name of Person
+          -	*Number of guests (ADULTS and CHILDREN)
+          -	*Check-in date
+          -	*Check-out date
+          -	*Room Type (STANDART, SUITE)
+          
+          Response:
+          -	200 (idBooking)
+          -	400
+          -	500
 
--	list of all bookings
-     /booking
-     GET
-     Response:
-     •	200 (all fields)
-     •	500
+-    list of all bookings
 
--	list of defined bookings
-     /booking/{idBooking}
-     GET
-     Response:
-     •	200 (all fields)
-     •	500
+          /booking
+          
+          GET:
+          
+          Response:
+          -	200 (all fields)
+          -	500
 
--	Cancel of booking
-     /booking/{idBooking}
-     DELETE
-     Response:
-     •	200
-     •	400
-     •	500
+-    list of defined bookings
 
--	booking update
-     /booking/{idBooking}
-     UPDATE:
-     •	Name of Person
-     •	Number of guests (ADULTS and CHILDREN)
-     •	Check-in date
-     •	Check-out date
-     •	Room Type (STANDART, SUITE)
-     Acceptance Criteria:
+          /booking/{idBooking}
+          
+          GET:
+          
+          Response:
+          -	200 (all fields)
+          -	500
+
+-    cancel of booking
+
+          /booking/{idBooking}
+
+          DELETE:
+
+          Response:
+          -	200
+          -	400
+          -	500
+
+-    booking update
+       
+          /booking/{idBooking}
+
+          UPDATE:
+          -	Name of Person
+          -	Number of guests (ADULTS and CHILDREN)
+          -	Check-in date
+          -	Check-out date
+          -	Room Type (STANDART, SUITE)
+          
+          Response:
+          -	200
+          -	400
+          -	500
+
+### Acceptance Criteria:
 1.	Project is created
 2.	Endpoints are implemented
 3.	Request and Response entities are created
@@ -64,9 +85,9 @@ Create Spring Boot Web application for a hotel with following endpoints:
 5.	Swagger is created
 
 
-Note: In this task should be implemented only RestConroller with endpoints which receive request and return some response. No need to create web pages, swagger is enough.
+#### Note: In this task should be implemented only RestConroller with endpoints which receive request and return some response. No need to create web pages, swagger is enough.
 
-Technologies and environments to use:
+### Technologies and environments to use:
 1.	Spring version – latest
 2.	Spring boot version – latest
 3.	Junit version – 5

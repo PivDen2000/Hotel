@@ -112,10 +112,24 @@ public class BookingController {
                     content = @Content)
     })
     @PutMapping("/{idBooking}")
-    public ResponseEntity<Object> updateBooking(@PathVariable long idBooking, @RequestBody Booking booking) {
+    public ResponseEntity<Object> updateBooking(@PathVariable long idBooking, @RequestBody Booking newBooking) {
         try {
-            validateBooking(booking);
-            return new ResponseEntity<>(bookingService.updateBooking(idBooking, booking), HttpStatus.OK);
+            var oldBooking = bookingService.getBooking(idBooking);
+
+            if(newBooking.getName() == null)
+                newBooking.setName(oldBooking.getName());
+            if(newBooking.getNumberOfGuests() == null)
+                newBooking.setNumberOfGuests(oldBooking.getNumberOfGuests());
+            if(newBooking.getCheckInDate() == null)
+                newBooking.setCheckInDate(oldBooking.getCheckInDate());
+            if(newBooking.getCheckOutDate() == null)
+                newBooking.setCheckOutDate(oldBooking.getCheckOutDate());
+            if(newBooking.getRoomType() == null)
+                newBooking.setRoomType(oldBooking.getRoomType());
+
+            validateBooking(newBooking);
+
+            return new ResponseEntity<>(bookingService.updateBooking(idBooking, newBooking), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
