@@ -1,8 +1,5 @@
-package com.piven.Hotel.Controller;
+package com.piven.hotel;
 
-import com.piven.Hotel.Model.Booking;
-import com.piven.Hotel.Service.IBookingService;
-import com.piven.Hotel.Service.Implementation.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,7 +15,7 @@ import java.util.Arrays;
 @RestController
 @Tag(name = "Booking Controller")
 public class BookingController {
-    private final IBookingService bookingService = new BookingService();
+    private final BookingService bookingService = new BookingService();
 
     private void validateBooking(Booking booking) throws Exception {
         if (booking == null)
@@ -45,7 +42,7 @@ public class BookingController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Successfully created",
-                    content = @Content(mediaType = "integer")),
+                    content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "400",
                     description = "The booking was not created",
                     content = @Content),
@@ -106,7 +103,7 @@ public class BookingController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Successfully updated",
-                    content = @Content(mediaType = "boolean")),
+                    content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "400",
                     description = "The booking was not found",
                     content = @Content),
@@ -128,7 +125,7 @@ public class BookingController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Successfully deleted",
-                    content = @Content(mediaType = "boolean")),
+                    content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "400",
                     description = "The booking was not found",
                     content = @Content),

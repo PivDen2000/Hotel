@@ -1,4 +1,4 @@
-package com.piven.Hotel.Model;
+package com.piven.hotel;
 
 
 import nonapi.io.github.classgraph.json.Id;
