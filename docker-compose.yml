@@ -1,0 +1,12 @@
+version: '3'
+services:
+  frontend:
+    image: nginx
+    volumes:
+        - ./frontend/src:/usr/share/nginx/html
+    ports:
+      - "3000:80"
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
