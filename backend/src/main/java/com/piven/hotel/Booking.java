@@ -1,28 +1,29 @@
 package com.piven.hotel;
 
-
-import nonapi.io.github.classgraph.json.Id;
-
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name="bookings")
 public class Booking {
 
     @Id
-    @NotBlank
-    private Long id;
-    @NotBlank
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
+    @Column
     private String name;
-    @NotBlank
+    @Column
     private Integer numberOfGuests;
-    @NotBlank
+    @Column
     private LocalDate checkInDate;
-    @NotBlank
+    @Column
     private LocalDate checkOutDate;
-    @NotBlank
+    @Column
     private String roomType;
 
     public enum roomTypes {STANDARD, SUITE}
+
+    public Booking(){}
 
     public Booking(String name, int numberOfGuests, LocalDate checkInDate, LocalDate checkOutDate, String roomType) {
         this.name = name;
@@ -32,11 +33,11 @@ public class Booking {
         this.roomType = roomType;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

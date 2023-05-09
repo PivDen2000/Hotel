@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ import java.util.Arrays;
 @Tag(name = "Booking Controller")
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
-    private final BookingService bookingService = new BookingService();
+    @Autowired
+    private BookingRepository bookingRepo;
 
     private void validateBooking(Booking booking) throws Exception {
         if (booking == null)
@@ -55,7 +57,7 @@ public class BookingController {
     public ResponseEntity<Object> createBooking(@RequestBody Booking booking) {
         try {
             validateBooking(booking);
-            return new ResponseEntity<>(bookingService.createBooking(booking), HttpStatus.OK);
+            return new ResponseEntity<>(bookingRepo.save(booking), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -73,7 +75,7 @@ public class BookingController {
     @GetMapping("/")
     public ResponseEntity<Object> getBookings() {
         try {
-            return new ResponseEntity<>(bookingService.getBookings(), HttpStatus.OK);
+            return new ResponseEntity<>(bookingRepo.findAll(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -92,9 +94,9 @@ public class BookingController {
                     content = @Content)
     })
     @GetMapping("/{idBooking}")
-    public ResponseEntity<Object> getBooking(@PathVariable long idBooking) {
+    public ResponseEntity<Object> getBooking(@PathVariable String idBooking) {
         try {
-            return new ResponseEntity<>(bookingService.getBooking(idBooking), HttpStatus.OK);
+            return new ResponseEntity<>(bookingRepo.findById(idBooking), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -113,9 +115,9 @@ public class BookingController {
                     content = @Content)
     })
     @PutMapping("/{idBooking}")
-    public ResponseEntity<Object> updateBooking(@PathVariable long idBooking, @RequestBody Booking newBooking) {
+    public ResponseEntity<Object> updateBooking(@PathVariable String idBooking, @RequestBody Booking newBooking) {
         try {
-            var oldBooking = bookingService.getBooking(idBooking);
+            var oldBooking = bookingRepo.findById(idBooking).get();
 
             if(newBooking.getName() == null)
                 newBooking.setName(oldBooking.getName());
@@ -130,7 +132,9 @@ public class BookingController {
 
             validateBooking(newBooking);
 
-            return new ResponseEntity<>(bookingService.updateBooking(idBooking, newBooking), HttpStatus.OK);
+            deleteBooking(idBooking);
+
+            return new ResponseEntity<>(bookingRepo.save(newBooking), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -149,9 +153,10 @@ public class BookingController {
                     content = @Content)
     })
     @DeleteMapping("/{idBooking}")
-    public ResponseEntity<Object> deleteBooking(@PathVariable long idBooking) {
+    public ResponseEntity<Object> deleteBooking(@PathVariable String idBooking) {
         try {
-            return new ResponseEntity<>(bookingService.deleteBooking(idBooking), HttpStatus.OK);
+            bookingRepo.delete(bookingRepo.findById(idBooking).get());
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
