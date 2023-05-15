@@ -96,7 +96,7 @@ public class BookingController {
     @GetMapping("/{idBooking}")
     public ResponseEntity<Object> getBooking(@PathVariable String idBooking) {
         try {
-            return new ResponseEntity<>(bookingRepo.findById(idBooking), HttpStatus.OK);
+            return new ResponseEntity<>(bookingRepo.findById(Long.valueOf(idBooking)), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -117,7 +117,7 @@ public class BookingController {
     @PutMapping("/{idBooking}")
     public ResponseEntity<Object> updateBooking(@PathVariable String idBooking, @RequestBody Booking newBooking) {
         try {
-            var oldBooking = bookingRepo.findById(idBooking).get();
+            var oldBooking = bookingRepo.findById(Long.valueOf(idBooking)).get();
 
             if(newBooking.getName() == null)
                 newBooking.setName(oldBooking.getName());
@@ -155,7 +155,7 @@ public class BookingController {
     @DeleteMapping("/{idBooking}")
     public ResponseEntity<Object> deleteBooking(@PathVariable String idBooking) {
         try {
-            bookingRepo.delete(bookingRepo.findById(idBooking).get());
+            bookingRepo.delete(bookingRepo.findById(Long.valueOf(idBooking)).get());
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
